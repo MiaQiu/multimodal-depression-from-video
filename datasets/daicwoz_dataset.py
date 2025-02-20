@@ -82,7 +82,8 @@ class DaicWozDataset(AcumenDataset):
     def _compute_duration(self, root_path):
         durations = []
         for video_id in self.df['video_id'].tolist():
-            audio_covarep_chunks = sorted( os.listdir(f'{root_path}/{video_id}/audio_covarep/') )
+            audio_covarep_chunks = sorted( os.listdir(f'{root_path}/{video_id}_P/audio_covarep/') )
+            #audio_covarep_chunks = sorted( os.listdir(f'{root_path}/no-chunked/audio_covarep/') )
             nframes = int(audio_covarep_chunks[-1].split(".")[0].split("_")[-1])
             durations.append(float(nframes / 100.0))
 

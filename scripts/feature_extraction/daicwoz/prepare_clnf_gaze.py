@@ -19,7 +19,7 @@ if __name__ == "__main__":
     sessions = sorted(os.listdir(args.src_root))
     for sessionID in tqdm(sessions):
 
-        data_path = os.path.join(args.src_root, sessionID, sessionID+featureID)
+        data_path = os.path.join(args.src_root, sessionID, sessionID[:-2]+featureID)
         df = pd.read_csv(data_path, index_col=0)
 
         v0 = df.loc[:, " x_0":" z_0"].astype("float32").to_numpy()

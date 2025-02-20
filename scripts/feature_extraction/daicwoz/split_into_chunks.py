@@ -3,6 +3,7 @@ import sys
 import joblib
 import numpy as np
 from tqdm import tqdm
+import argparse
 
 def process_video(videoID):
     dest_modality_dir = os.path.join(args.dest_dir, videoID.replace(".npz", ""), modality)
