@@ -20,10 +20,10 @@ class Modality(object):
         }
 
     def _get_modality_mask(self, video_sample):
-        all_chunk_files = sorted(os.listdir(f'{self.env_path}/data/{video_sample["video_id"]}/{self.modality_dir}/'))
+        all_chunk_files = sorted(os.listdir(f'{self.env_path}/data/{video_sample["video_id"]}_P/{self.modality_dir}/'))
         video_frame_length = int(all_chunk_files[-1].split(".")[0].split("_")[-1])
 
-        no_modality_idxs = np.load(f'{self.env_path}/data/{video_sample["video_id"]}/{self.modality_mask_file}')['data'].tolist()
+        no_modality_idxs = np.load(f'{self.env_path}/data/{video_sample["video_id"]}_P/{self.modality_mask_file}')['data'].tolist()
 
         mask = np.ones((video_frame_length,))
         mask[no_modality_idxs] = 0.
@@ -40,7 +40,7 @@ class Modality(object):
         conv_mask = np.convolve(modality_mask, conv_kernel, mode="same")
 
         if "audio" in self.modality_dir:
-            all_chunk_files = sorted(os.listdir(f'{self.env_path}/data/{video_sample["video_id"]}/{self.video_ref_modality}/'))
+            all_chunk_files = sorted(os.listdir(f'{self.env_path}/data/{video_sample["video_id"]}_P/{self.video_ref_modality}/'))
             video_frame_length_reference = int(all_chunk_files[-1].split(".")[0].split("_")[-1])
 
             aligning_idxs = np.linspace(0, conv_mask.shape[0], num = video_frame_length_reference).astype(np.int32)
@@ -58,7 +58,7 @@ class Modality(object):
         if video_id in self.chunk_cache:
             return self.chunk_cache[video_id]
 
-        chunk_files = glob.glob(f'{self.env_path}/data/{video_id}/{self.modality_dir}/*.npz')
+        chunk_files = glob.glob(f'{self.env_path}/data/{video_id}_P/{self.modality_dir}/*.npz')
         indexes = [(int(chunk_file.split('/')[-1].split('.')[0].split('_')[-2]), int(chunk_file.split('/')[-1].split('.')[0].split('_')[-1])) for chunk_file in chunk_files]
         self.chunk_cache[video_id] = indexes
 
@@ -86,7 +86,7 @@ class Modality(object):
         files_in_window = sorted([v for v in indexes if v[0] >= min_index and v[1] <= max_index])
 
         for i, (start_chunk, end_chunk) in enumerate(files_in_window):
-            data = np.load(f'{self.env_path}/data/{video_id}/{self.modality_dir}/{video_id}_{str(start_chunk).zfill(6)}_{str(end_chunk).zfill(6)}.npz')['data']
+            data = np.load(f'{self.env_path}/data/{video_id}_P/{self.modality_dir}/{video_id}_P_{str(start_chunk).zfill(6)}_{str(end_chunk).zfill(6)}.npz')['data']
 
             start_index = 0
             end_index = data.shape[0]

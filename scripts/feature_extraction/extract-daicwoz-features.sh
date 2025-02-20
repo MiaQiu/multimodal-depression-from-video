@@ -9,25 +9,25 @@ python ./scripts/feature_extraction/daicwoz/get_no_idxs.py --data-dir ./data/DAI
 
 # COVAREP
 python ./scripts/feature_extraction/daicwoz/prepare_covarep.py --src-root ./data/DAIC-WOZ/original_data/ --modality-id audio_covarep --dest-root $NO_CHUNKED_DIR
-python ./scripts/feature_extraction/daicwoz/split_into_chunks.py --source-dir $NO_CHUNKED_DIR --modality-id audio_covarep --no-idxs-id no_voice_idxs --dest-dir ./data/DAIC-WOZ/data/
+python ./scripts/feature_extraction/daicwoz/split_into_chunks.py --source-dir $NO_CHUNKED_DIR --modality-id audio_covarep --no-idxs-id no_voice_idxs --dest-dir ./data/DAIC-WOZ/data/ --frame-rate 30
 
 # FORMANTS
 python ./scripts/feature_extraction/daicwoz/prepare_formant.py --src-root ./data/DAIC-WOZ/original_data/ --modality-id audio_formant --dest-root $NO_CHUNKED_DIR
-python ./scripts/feature_extraction/daicwoz/split_into_chunks.py --source-dir $NO_CHUNKED_DIR --modality-id audio_formant --no-idxs-id no_voice_idxs --dest-dir ./data/DAIC-WOZ/data/
+python ./scripts/feature_extraction/daicwoz/split_into_chunks.py --source-dir $NO_CHUNKED_DIR --modality-id audio_formant --no-idxs-id no_voice_idxs --dest-dir ./data/DAIC-WOZ/data/ --frame-rate 30
 
 # 68 3D FACIAL LANDMARKS
 python ./scripts/feature_extraction/daicwoz/prepare_clnf_features3D.py --src-root ./data/DAIC-WOZ/original_data/ --modality-id facial_3d_landmarks --dest-root $NO_CHUNKED_DIR
-python ./scripts/feature_extraction/daicwoz/split_into_chunks.py --source-dir $NO_CHUNKED_DIR --modality-id facial_3d_landmarks --no-idxs-id no_face_idxs --dest-dir ./data/DAIC-WOZ/data/
+python ./scripts/feature_extraction/daicwoz/split_into_chunks.py --source-dir $NO_CHUNKED_DIR --modality-id facial_3d_landmarks --no-idxs-id no_face_idxs --dest-dir ./data/DAIC-WOZ/data/ --frame-rate 30
 
 # FACIAL ACTION UNITS
 python ./scripts/feature_extraction/daicwoz/prepare_clnf_aus.py --src-root ./data/DAIC-WOZ/original_data/ --modality-id facial_aus --dest-root $NO_CHUNKED_DIR
-python ./scripts/feature_extraction/daicwoz/split_into_chunks.py --source-dir $NO_CHUNKED_DIR --modality-id facial_aus --no-idxs-id no_face_idxs --dest-dir ./data/DAIC-WOZ/data/
+python ./scripts/feature_extraction/daicwoz/split_into_chunks.py --source-dir $NO_CHUNKED_DIR --modality-id facial_aus --no-idxs-id no_face_idxs --dest-dir ./data/DAIC-WOZ/data/ --frame-rate 30
 
 # GAZE
 python ./scripts/feature_extraction/daicwoz/prepare_clnf_gaze.py --src-root ./data/DAIC-WOZ/original_data/ --modality-id gaze --dest-root $NO_CHUNKED_DIR
-python ./scripts/feature_extraction/daicwoz/split_into_chunks.py --source-dir $NO_CHUNKED_DIR --modality-id gaze --no-idxs-id no_face_idxs --dest-dir ./data/DAIC-WOZ/data/
+python ./scripts/feature_extraction/daicwoz/split_into_chunks.py --source-dir $NO_CHUNKED_DIR --modality-id gaze --no-idxs-id no_face_idxs --dest-dir ./data/DAIC-WOZ/data/ --frame-rate 30
 
 # HEAD POSE
 python ./scripts/feature_extraction/daicwoz/prepare_clnf_pose.py --src-root ./data/DAIC-WOZ/original_data/ --modality-id head_pose --dest-root $NO_CHUNKED_DIR
-python ./scripts/feature_extraction/daicwoz/split_into_chunks.py --source-dir $NO_CHUNKED_DIR --modality-id head_pose --no-idxs-id no_face_idxs --dest-dir ./data/DAIC-WOZ/data/
+python ./scripts/feature_extraction/daicwoz/split_into_chunks.py --source-dir $NO_CHUNKED_DIR --modality-id head_pose --no-idxs-id no_face_idxs --dest-dir ./data/DAIC-WOZ/data/ --frame-rate 30
 

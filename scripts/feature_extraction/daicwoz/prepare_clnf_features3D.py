@@ -20,7 +20,7 @@ if __name__ == "__main__":
     for sessionID in tqdm(sessions):
         facial_3d_landmarks = []
 
-        data_path = os.path.join(args.src_root, sessionID, sessionID+featureID)
+        data_path = os.path.join(args.src_root, sessionID, sessionID[:-2]+featureID)
         df = pd.read_csv(data_path, index_col=0)
 
         for i in range(0, 68):
