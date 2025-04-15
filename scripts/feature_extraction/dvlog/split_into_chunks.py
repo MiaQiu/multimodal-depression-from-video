@@ -2,6 +2,7 @@ import os
 import sys
 import joblib
 import numpy as np
+import argparse
 from tqdm import tqdm
 
 def process_video(videoID):
