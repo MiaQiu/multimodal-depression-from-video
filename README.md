@@ -77,6 +77,40 @@ bash ./scripts/feature_extraction/extract-dvlog-emonet-feats.sh
 conda deactivate emonet
 ```
 
+- To extract Wav2Vec2 audio embeddings:
+
+```
+conda create -y -n wav2vec2 python=3.8
+conda activate wav2vec2
+pip install torch torchaudio transformers pandas pyannote.audio numpy tqdm
+bash ./scripts/feature_extraction/extract-dvlog-wav2vec2-feats.sh
+conda deactivate wav2vec2
+```
+
+The Wav2Vec2 feature extraction:
+- Uses the facebook/wav2vec2-base model
+- Processes audio files in batches (default: 4 files per batch)
+- Extracts 768-dimensional features at 25fps
+- Supports GPU acceleration (set via --cuda-device)
+- Automatically handles audio resampling to 16kHz
+- Saves features in compressed numpy format (.npz)
+
+Requirements:
+- Hugging Face authentication token (required for voice activity detection)
+- Directory structure:
+  - `./data/D-vlog/videos/` - Original video files
+  - `./data/D-vlog/wavs/` - Extracted WAV files
+  - `./data/D-vlog/no-chunked/` - Unchunked feature files
+  - `./data/D-vlog/data/` - Final processed features
+- Video IDs CSV file at `./data/D-vlog/video_ids.csv`
+
+The extraction pipeline:
+1. Extracts WAV files from videos
+2. Detects voice activity using pyannote.audio
+3. Processes voice activity to identify non-voice segments
+4. Extracts Wav2Vec2 features from audio
+5. Splits features into chunks for training
+
 - To extract gaze tracking:
 
 ```

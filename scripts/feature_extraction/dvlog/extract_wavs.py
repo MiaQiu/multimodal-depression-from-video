@@ -19,7 +19,8 @@ if __name__ == "__main__":
 
     os.makedirs(args.dest_dir, exist_ok=True)
 
-    videoIDs = pd.read_csv(args.csv_path)[args.column_video_id].tolist()
+    # Read CSV and convert video IDs to strings
+    videoIDs = pd.read_csv(args.csv_path, dtype={args.column_video_id: str})[args.column_video_id].tolist()
 
     for videoID in tqdm(videoIDs):
         dst_path = os.path.join(args.dest_dir, videoID + ".wav")
