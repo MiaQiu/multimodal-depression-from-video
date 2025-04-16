@@ -111,6 +111,54 @@ The extraction pipeline:
 4. Extracts Wav2Vec2 features from audio
 5. Splits features into chunks for training
 
+- To extract text and text embeddings:
+
+```
+conda create -y -n text python=3.8
+conda activate text
+pip install torch torchaudio transformers numpy tqdm ffmpeg-python
+bash ./scripts/feature_extraction/extract-dvlog-text-embeddings.sh
+conda deactivate text
+```
+
+The text and text embeddings extraction:
+- Uses OpenAI's Whisper model (whisper-medium) for speech-to-text transcription
+- Uses BERT model fine-tuned on sentiment (nlptown/bert-base-multilingual-uncased-sentiment) for text embeddings
+- Processes audio files in 30-second chunks with 5-second overlap
+- Extracts two types of embeddings:
+  - CLS token embeddings (768-dimensional) - good for classification tasks
+  - Mean pooled embeddings (768-dimensional) - good for semantic representation
+- Saves both transcripts and embeddings in separate directories
+
+Requirements:
+- Python packages:
+  - torch and torchaudio - for audio processing and deep learning
+  - transformers - for Whisper and BERT models
+  - numpy - for array operations
+  - tqdm - for progress bars
+  - ffmpeg-python - for audio file handling
+- Directory structure:
+  - `./data/D-vlog/videos/` - Original video files
+  - `./data/D-vlog/wavs/` - Extracted WAV files
+  - `./data/D-vlog/no-chunked/` - Unchunked feature files
+    - `text_transcripts/` - Transcribed text files
+    - `text_embeddings/` - Text embeddings
+  - `./data/D-vlog/data/` - Final processed features
+- Video IDs CSV file at `./data/D-vlog/video_ids.csv`
+
+The extraction pipeline:
+1. Extracts WAV files from videos (if not already done)
+2. Transcribes audio to text using Whisper with English language setting
+3. Extracts text embeddings using BERT
+4. Processes embeddings to identify non-text segments
+5. Splits features into chunks for training
+
+Output format:
+- Transcripts: Plain text files (.txt)
+- Embeddings: NumPy files (.npy)
+  - CLS embeddings: 768-dimensional vectors
+  - Mean embeddings: 768-dimensional vectors
+
 - To extract gaze tracking:
 
 ```
