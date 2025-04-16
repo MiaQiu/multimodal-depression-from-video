@@ -15,6 +15,13 @@ python3 ./scripts/feature_extraction/dvlog/extract_wavs.py \
     --video-dir $VIDEO_DIR \
     --dest-dir $WAV_DIR
 
+# Extract Wav2Vec2 features
+python3 ./scripts/feature_extraction/dvlog/extract_wav2vec2_features.py \
+    --audio-dir $WAV_DIR \
+    --audio-embeddings-output-dir $NO_CHUNKED_DIR/wav2vec2_embeddings/ \
+    --batch-size 4 \
+    --cuda-device cuda:0
+
 # Extract voice activity
 python3 ./scripts/feature_extraction/dvlog/extract_audio_activity.py \
     --pretrained-model pyannote/voice-activity-detection \
@@ -30,12 +37,7 @@ python3 ./scripts/feature_extraction/dvlog/process_voice_activity.py \
     --audio-activity-dir $NO_CHUNKED_DIR/audio_activity/ \
     --dest-dir no_voice_idxs
 
-# Extract Wav2Vec2 features
-python3 ./scripts/feature_extraction/dvlog/extract_wav2vec2_features.py \
-    --audio-dir $WAV_DIR \
-    --audio-embeddings-output-dir $NO_CHUNKED_DIR/wav2vec2_embeddings/ \
-    --batch-size 4 \
-    --cuda-device cuda:0
+
 
 # Split into chunks
 python3 ./scripts/feature_extraction/dvlog/split_into_chunks.py \
