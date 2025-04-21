@@ -77,6 +77,20 @@ bash ./scripts/feature_extraction/extract-dvlog-emonet-feats.sh
 conda deactivate emonet
 ```
 
+The EmoNet feature extraction:
+- Uses the EmoNet model from "Estimation of continuous valence and arousal levels from faces in naturalistic conditions" (Nature Machine Intelligence, 2021)
+- Extracts 256-dimensional embeddings from the last layer before classification
+- Processes faces in batches for GPU acceleration
+- Supports both the 8-class model (neutral, happy, sad, surprise, fear, disgust, anger, contempt) and the 5-class model
+- Maintains temporal alignment with other modalities at 25 fps
+- Features are saved in compressed numpy format (.npz)
+
+This feature extraction pipeline:
+1. Uses previously extracted face crops
+2. Passes each face through the EmoNet model
+3. Captures the 256-dimensional embedding vector from the last layer before classification
+4. Saves features in the appropriate format for the multi-modal depression model
+
 - To extract Wav2Vec2 audio embeddings:
 
 ```
